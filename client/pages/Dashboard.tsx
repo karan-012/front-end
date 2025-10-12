@@ -122,6 +122,8 @@ export default function Dashboard() {
               <div className="grid gap-6 md:grid-cols-3">
                 <div className="md:col-span-2 grid gap-6">
                   <ProfileSummary type="trainer" data={trainerProfile} />
+                  <NotificationsCard />
+                  <ReviewSection trainerUsername={trainerProfile?.username} />
                   <Card>
                     <CardHeader>
                       <CardTitle>Upcoming bookings</CardTitle>
