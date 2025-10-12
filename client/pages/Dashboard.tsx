@@ -128,9 +128,17 @@ export default function Dashboard() {
                       ) : (
                         <ul className="space-y-3 text-sm">
                           {tBookings.slice(0,5).map((b:any)=> (
-                            <li key={b.id} className="flex items-center justify-between border-b py-2">
+                            <li key={b.id} className="flex items-center justify-between gap-3 border-b py-2">
                               <span>{b.session_date} {b.start_time}-{b.end_time}</span>
-                              <span className="rounded bg-secondary px-2 py-1 text-xs">{b.status || "pending"}</span>
+                              <div className="flex items-center gap-2">
+                                <span className="rounded bg-secondary px-2 py-1 text-xs">{b.status || "pending"}</span>
+                                {!b.status || b.status === "pending" ? (
+                                  <>
+                                    <Button size="sm" variant="outline" onClick={async()=>{ await api.updateBookingStatus(String(b.id), "approved"); await load(); }}>Approve</Button>
+                                    <Button size="sm" variant="outline" onClick={async()=>{ await api.updateBookingStatus(String(b.id), "rejected"); await load(); }}>Reject</Button>
+                                  </>
+                                ) : null}
+                              </div>
                             </li>
                           ))}
                         </ul>
