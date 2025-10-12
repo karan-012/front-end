@@ -1,7 +1,5 @@
-import { DemoResponse } from "@shared/api";
 import { useEffect, useState } from "react";
 
-import { useEffect, useMemo, useState } from "react";
 import MainLayout from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
