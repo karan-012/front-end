@@ -35,7 +35,7 @@ export default function Header() {
             Dashboard
           </NavLink>
         </nav>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2"><ThemeToggle />
           {!isAuthenticated ? (
             <>
               <Button asChild variant="ghost" className="hidden sm:inline-flex">
