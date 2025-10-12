@@ -1,6 +1,7 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/AuthContext";
+import ThemeToggle from "@/components/theme/ThemeToggle";
 
 export default function Header() {
   const { isAuthenticated, logout, user } = useAuth();

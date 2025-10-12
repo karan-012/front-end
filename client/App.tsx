@@ -16,6 +16,7 @@ import Chat from "./pages/Chat";
 import Profile from "./pages/Profile";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { AuthProvider } from "@/context/AuthContext";
+import ThemeProvider from "@/components/theme/ThemeProvider";
 
 const queryClient = new QueryClient();
 

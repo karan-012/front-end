@@ -6,6 +6,7 @@ import ClientProfileForm from "@/components/forms/ClientProfileForm";
 import ProfileSummary from "@/components/profile/ProfileSummary";
 import { Button } from "@/components/ui/button";
 import api from "@/services/api";
+import TrainerAvailabilityManager from "@/components/availability/TrainerAvailabilityManager";
 import { useEffect, useState } from "react";
 
 export default function Dashboard() {
