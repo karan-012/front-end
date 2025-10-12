@@ -6,7 +6,7 @@ import {
 } from "@/utils/storage";
 
 const DEFAULT_BASE_URL =
-  (import.meta as any).env?.VITE_API_BASE_URL || "https://api.mypter.example";
+  (import.meta as any).env?.VITE_API_BASE_URL || "http://127.0.0.1:5000";
 
 export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 
