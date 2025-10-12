@@ -7,6 +7,9 @@ import ProfileSummary from "@/components/profile/ProfileSummary";
 import { Button } from "@/components/ui/button";
 import api from "@/services/api";
 import TrainerAvailabilityManager from "@/components/availability/TrainerAvailabilityManager";
+import NotificationsCard from "@/components/notifications/NotificationsCard";
+import BookingsChart from "@/components/analytics/BookingsChart";
+import ReviewSection from "@/components/reviews/ReviewSection";
 import { useEffect, useState } from "react";
 
 export default function Dashboard() {
