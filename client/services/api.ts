@@ -220,6 +220,27 @@ export const api = {
     request<any>({ path: "/booking/trainer", method: "GET", auth: true }),
   clientBookings: () =>
     request<any>({ path: "/booking/client", method: "GET", auth: true }),
+
+  // Notifications (placeholders)
+  listNotifications: () => request<any>({ path: "/notifications", method: "GET", auth: true }),
+  markNotificationRead: (id: string) => request<any>({ path: `/notifications/${encodeURIComponent(id)}/read`, method: "PUT", auth: true }),
+
+  // Reviews (placeholders)
+  listReviews: (trainer_username: string) => request<any>({ path: `/reviews/trainer/${encodeURIComponent(trainer_username)}`, method: "GET" }),
+  addReview: (body: { trainer_username: string; rating: number; comment: string }) => request<any>({ path: "/reviews", method: "POST", body, auth: true }),
+
+  // Chat (placeholders)
+  chatThreads: () => request<any>({ path: "/chat/threads", method: "GET", auth: true }),
+  chatMessages: (thread_id: string) => request<any>({ path: "/chat/messages", method: "GET", params: { thread_id }, auth: true }),
+  chatSend: (body: { thread_id: string; message: string }) => request<any>({ path: "/chat/messages", method: "POST", body, auth: true }),
+
+  // Video (placeholders)
+  createVideoRoom: (body: { name: string }) => request<any>({ path: "/video/rooms", method: "POST", body, auth: true }),
+  getVideoToken: (body: { room: string }) => request<any>({ path: "/video/token", method: "POST", body, auth: true }),
+
+  // Payments (placeholders)
+  createCheckoutSession: (body: { amount: number; description?: string }) => request<any>({ path: "/payments/checkout", method: "POST", body, auth: true }),
+  paymentHistory: () => request<any>({ path: "/payments/history", method: "GET", auth: true }),
 };
 
 export default api;
