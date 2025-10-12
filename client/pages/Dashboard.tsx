@@ -97,6 +97,7 @@ export default function Dashboard() {
                       <div className="flex items-center justify-between"><span>Total bookings</span><span className="font-semibold">{cBookings.length}</span></div>
                       <div className="flex items-center justify-between"><span>Approved</span><span className="font-semibold">{cBookings.filter((b:any)=>b.status==="approved").length}</span></div>
                       <div className="flex items-center justify-between"><span>Pending</span><span className="font-semibold">{cBookings.filter((b:any)=>!b.status || b.status==="pending").length}</span></div>
+                      <BookingsChart data={Object.values(cBookings.reduce((acc:any,b:any)=>{ const d=b.session_date||""; acc[d]=(acc[d]||{date:d,count:0}); acc[d].count+=1; return acc; }, {}))} />
                     </CardContent>
                   </Card>
                 </div>
