@@ -28,21 +28,21 @@ const App = () => (
       <ThemeProvider>
         <AuthProvider>
           <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/auth" element={<AuthPage />} />
-            <Route path="/trainers" element={<Trainers />} />
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/auth" element={<AuthPage />} />
+              <Route path="/trainers" element={<Trainers />} />
 
-            <Route element={<ProtectedRoute />}>
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/bookings" element={<Bookings />} />
-              <Route path="/chat" element={<Chat />} />
-              <Route path="/profile" element={<Profile />} />
-            </Route>
+              <Route element={<ProtectedRoute />}>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/bookings" element={<Bookings />} />
+                <Route path="/chat" element={<Chat />} />
+                <Route path="/profile" element={<Profile />} />
+              </Route>
 
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
           </BrowserRouter>
         </AuthProvider>
       </ThemeProvider>

@@ -7,7 +7,12 @@ export default function ThemeToggle() {
   const current = theme === "system" ? systemTheme : theme;
   const isDark = current === "dark";
   return (
-    <Button variant="ghost" size="icon" aria-label="Toggle theme" onClick={() => setTheme(isDark ? "light" : "dark")}>
+    <Button
+      variant="ghost"
+      size="icon"
+      aria-label="Toggle theme"
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+    >
       {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
     </Button>
   );

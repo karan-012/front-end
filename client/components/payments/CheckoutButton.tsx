@@ -1,7 +1,13 @@
 import { Button } from "@/components/ui/button";
 import api from "@/services/api";
 
-export default function CheckoutButton({ amount, description }: { amount: number; description?: string }) {
+export default function CheckoutButton({
+  amount,
+  description,
+}: {
+  amount: number;
+  description?: string;
+}) {
   const handleClick = async () => {
     try {
       const res = await api.createCheckoutSession({ amount, description });
@@ -15,6 +21,11 @@ export default function CheckoutButton({ amount, description }: { amount: number
   };
 
   return (
-    <Button onClick={handleClick} className="bg-gradient-to-r from-[hsl(var(--brand-start))] to-[hsl(var(--brand-end))] text-white">Pay Now</Button>
+    <Button
+      onClick={handleClick}
+      className="bg-gradient-to-r from-[hsl(var(--brand-start))] to-[hsl(var(--brand-end))] text-white"
+    >
+      Pay Now
+    </Button>
   );
 }
