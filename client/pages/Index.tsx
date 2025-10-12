@@ -61,7 +61,7 @@ export default function Index() {
   return (
     <MainLayout>
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 opacity-30 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[hsl(var(--brand-start))] via-transparent to-transparent" />
+        <div className="absolute inset-0 -z-10 opacity-30 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[hsl(var(--brand-start))] via-transparent to-transparent bg-[length:200%_200%] animate-gradient-x" />
         <div className="container py-20 md:py-28">
           <div className="grid md:grid-cols-2 gap-10 items-center">
             <div>
