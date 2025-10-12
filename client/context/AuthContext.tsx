@@ -1,13 +1,29 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import api from "@/services/api";
-import { getAccessToken, clearTokens, setTokens, saveUser, getUser, clearUser } from "@/utils/storage";
+import {
+  getAccessToken,
+  clearTokens,
+  setTokens,
+  saveUser,
+  getUser,
+  clearUser,
+} from "@/utils/storage";
 
 export interface AuthState {
   user: any | null;
   loading: boolean;
   isAuthenticated: boolean;
-  login: (payload: { email_or_username: string; password: string }) => Promise<void>;
-  register: (payload: { first_name: string; last_name: string; email: string; username: string; password: string }) => Promise<void>;
+  login: (payload: {
+    email_or_username: string;
+    password: string;
+  }) => Promise<void>;
+  register: (payload: {
+    first_name: string;
+    last_name: string;
+    email: string;
+    username: string;
+    password: string;
+  }) => Promise<void>;
   logout: () => void;
   refreshMe: () => Promise<void>;
 }
@@ -35,7 +51,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     init();
   }, []);
 
-  const login = async (payload: { email_or_username: string; password: string }) => {
+  const login = async (payload: {
+    email_or_username: string;
+    password: string;
+  }) => {
     setLoading(true);
     try {
       const { access_token, refresh_token, user } = await api.login(payload);
@@ -47,11 +66,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const register = async (payload: { first_name: string; last_name: string; email: string; username: string; password: string }) => {
+  const register = async (payload: {
+    first_name: string;
+    last_name: string;
+    email: string;
+    username: string;
+    password: string;
+  }) => {
     setLoading(true);
     try {
       await api.register(payload);
-      await login({ email_or_username: payload.email || payload.username, password: payload.password });
+      await login({
+        email_or_username: payload.email || payload.username,
+        password: payload.password,
+      });
     } finally {
       setLoading(false);
     }
@@ -73,15 +101,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const value = useMemo<AuthState>(() => ({
-    user,
-    loading,
-    isAuthenticated: !!user,
-    login,
-    register,
-    logout,
-    refreshMe,
-  }), [user, loading]);
+  const value = useMemo<AuthState>(
+    () => ({
+      user,
+      loading,
+      isAuthenticated: !!user,
+      login,
+      register,
+      logout,
+      refreshMe,
+    }),
+    [user, loading],
+  );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
