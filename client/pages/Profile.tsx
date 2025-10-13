@@ -2,7 +2,13 @@ import MainLayout from "@/components/layout/MainLayout";
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import api from "@/services/api";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import TrainerProfileForm from "@/components/forms/TrainerProfileForm";
 import ClientProfileForm from "@/components/forms/ClientProfileForm";
@@ -28,17 +34,29 @@ export default function Profile() {
 
   useEffect(() => {
     const load = async () => {
-      setLoading(true); setError("");
+      setLoading(true);
+      setError("");
       try {
         if (isViewingOther) {
-          try { setTrainer(await api.getTrainerByUsername(username)); } catch {}
-          try { setClient(await api.getClientByUsername(username)); } catch {}
+          try {
+            setTrainer(await api.getTrainerByUsername(username));
+          } catch {}
+          try {
+            setClient(await api.getClientByUsername(username));
+          } catch {}
         } else {
-          try { setTrainer(await api.myTrainerProfile()); } catch {}
-          try { setClient(await api.myClientProfile()); } catch {}
+          try {
+            setTrainer(await api.myTrainerProfile());
+          } catch {}
+          try {
+            setClient(await api.myClientProfile());
+          } catch {}
         }
-      } catch (e:any) { setError(e?.message || "Failed to load profile"); }
-      finally { setLoading(false); }
+      } catch (e: any) {
+        setError(e?.message || "Failed to load profile");
+      } finally {
+        setLoading(false);
+      }
     };
     load();
   }, [username, isViewingOther]);
@@ -49,15 +67,26 @@ export default function Profile() {
     return (
       <MainLayout>
         <section className="container py-10 grid gap-6">
-          {error && <div className="rounded border border-destructive/50 bg-destructive/10 px-3 py-2 text-sm text-destructive-foreground">{error}</div>}
+          {error && (
+            <div className="rounded border border-destructive/50 bg-destructive/10 px-3 py-2 text-sm text-destructive-foreground">
+              {error}
+            </div>
+          )}
           <Card>
             <CardHeader>
               <CardTitle className="text-2xl font-extrabold">{name}</CardTitle>
-              <CardDescription>{[data?.specialization, data?.location].filter(Boolean).join(" • ")}</CardDescription>
+              <CardDescription>
+                {[data?.specialization, data?.location]
+                  .filter(Boolean)
+                  .join(" • ")}
+              </CardDescription>
             </CardHeader>
             <CardContent className="grid md:grid-cols-3 gap-6">
               <div className="md:col-span-2">
-                <ProfileSummary type={trainer ? "trainer" : "client"} data={data} />
+                <ProfileSummary
+                  type={trainer ? "trainer" : "client"}
+                  data={data}
+                />
               </div>
               {trainer ? (
                 <div className="grid gap-3">
@@ -79,27 +108,41 @@ export default function Profile() {
           <h1 className="text-3xl font-bold">Your Profile</h1>
         </div>
         {loading ? (
-          <div className="rounded-lg border p-6 text-sm text-muted-foreground">Loading...</div>
+          <div className="rounded-lg border p-6 text-sm text-muted-foreground">
+            Loading...
+          </div>
         ) : (
           <div className="grid gap-6 md:grid-cols-2">
             <Card>
               <CardHeader>
                 <CardTitle>My Client Profile</CardTitle>
-                <CardDescription>Create or update your client profile</CardDescription>
+                <CardDescription>
+                  Create or update your client profile
+                </CardDescription>
               </CardHeader>
               <CardContent className="grid gap-4">
                 {client ? <ProfileSummary type="client" data={client} /> : null}
-                <ClientProfileForm initial={client || undefined} onSaved={()=>window.location.reload()} />
+                <ClientProfileForm
+                  initial={client || undefined}
+                  onSaved={() => window.location.reload()}
+                />
               </CardContent>
             </Card>
             <Card>
               <CardHeader>
                 <CardTitle>My Trainer Profile</CardTitle>
-                <CardDescription>Create or update your trainer profile</CardDescription>
+                <CardDescription>
+                  Create or update your trainer profile
+                </CardDescription>
               </CardHeader>
               <CardContent className="grid gap-4">
-                {trainer ? <ProfileSummary type="trainer" data={trainer} /> : null}
-                <TrainerProfileForm initial={trainer || undefined} onSaved={()=>window.location.reload()} />
+                {trainer ? (
+                  <ProfileSummary type="trainer" data={trainer} />
+                ) : null}
+                <TrainerProfileForm
+                  initial={trainer || undefined}
+                  onSaved={() => window.location.reload()}
+                />
               </CardContent>
             </Card>
           </div>

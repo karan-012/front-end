@@ -51,7 +51,13 @@ export default function Trainers() {
             : [];
       setItems(list);
       setTotal((data as any)?.total ?? list.length);
-      setPages((data as any)?.pages ?? Math.max(1, Math.ceil(((data as any)?.total ?? list.length) / perPage)));
+      setPages(
+        (data as any)?.pages ??
+          Math.max(
+            1,
+            Math.ceil(((data as any)?.total ?? list.length) / perPage),
+          ),
+      );
       setPage((data as any)?.page ?? p);
     } catch (e: any) {
       setError(e?.message || "Failed to load trainers");
@@ -147,7 +153,10 @@ export default function Trainers() {
           </div>
         )}
 
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-testid="trainers-grid">
+        <div
+          className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          data-testid="trainers-grid"
+        >
           {loading &&
             Array.from({ length: perPage }).map((_, i) => (
               <div
@@ -172,7 +181,10 @@ export default function Trainers() {
                 <div className="h-24 bg-gradient-to-r from-[hsl(var(--brand-start))]/20 to-[hsl(var(--brand-end))]/20" />
                 <CardHeader>
                   <CardTitle className="text-lg">
-                    <a href={`/profile/${encodeURIComponent(t.username || "")}`} className="hover:underline">
+                    <a
+                      href={`/profile/${encodeURIComponent(t.username || "")}`}
+                      className="hover:underline"
+                    >
                       {t.username || t.name || "Trainer"}
                     </a>
                   </CardTitle>
