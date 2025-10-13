@@ -14,6 +14,7 @@ import Dashboard from "./pages/Dashboard";
 import Bookings from "./pages/Bookings";
 import Chat from "./pages/Chat";
 import Profile from "./pages/Profile";
+import Video from "./pages/Video";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { AuthProvider } from "@/context/AuthContext";
 import ThemeProvider from "@/components/theme/ThemeProvider";
