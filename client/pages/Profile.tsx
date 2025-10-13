@@ -1,6 +1,6 @@
 import MainLayout from "@/components/layout/MainLayout";
 import { useEffect, useMemo, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import api from "@/services/api";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -17,7 +17,8 @@ function useQuery() {
 
 export default function Profile() {
   const q = useQuery();
-  const username = q.get("u") || "";
+  const params = useParams();
+  const username = params.username || q.get("u") || "";
   const [trainer, setTrainer] = useState<any | null>(null);
   const [client, setClient] = useState<any | null>(null);
   const [loading, setLoading] = useState(false);
