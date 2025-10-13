@@ -33,14 +33,15 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/auth" element={<AuthPage />} />
               <Route path="/trainers" element={<Trainers />} />
+              <Route path="/profile/:username" element={<Profile />} />
 
               <Route element={<ProtectedRoute />}>
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/bookings" element={<Bookings />} />
                 <Route path="/chat" element={<Chat />} />
-              <Route path="/video" element={<Video />} />
-              <Route path="/profile" element={<Profile />} />
-            </Route>
+                <Route path="/video" element={<Video />} />
+                <Route path="/profile" element={<Profile />} />
+              </Route>
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
