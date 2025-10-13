@@ -253,7 +253,7 @@ export const api = {
       auth: true,
     }),
   trainerBookings: () =>
-    request<any>({ path: "/booking/trainer", method: "GET", auth: true }),
+    BACKEND_OFFLINE ? Promise.resolve([]) : request<any>({ path: "/booking/trainer", method: "GET", auth: true }),
   clientBookings: () =>
     request<any>({ path: "/booking/client", method: "GET", auth: true }),
 
