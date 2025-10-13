@@ -48,6 +48,7 @@ export default function Trainers() {
           : [];
       setItems(list);
       setTotal((data as any)?.total ?? list.length);
+      setPages((data as any)?.pages ?? Math.max(1, Math.ceil(((data as any)?.total ?? list.length) / perPage)));
       setPage((data as any)?.page ?? p);
     } catch (e: any) {
       setError(e?.message || "Failed to load trainers");
