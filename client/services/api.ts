@@ -160,8 +160,30 @@ export const api = {
     }),
 
   // Trainer search
-  searchTrainers: (params: Record<string, any>) =>
-    request<any>({ path: "/trainers/", method: "GET", params }),
+  searchTrainers: (params: Record<string, any>) => {
+    if (BACKEND_OFFLINE) {
+      let list = sampleTrainers();
+      const { specialization = "", location = "", training_type = "", language = "", min_price, max_price, min_experience, page = 1, per_page = 10, sort_by = "experience", sort_order = "desc" } = params || ({} as any);
+      list = list.filter((t:any) =>
+        (!specialization || String(t.specialization).toLowerCase().includes(String(specialization).toLowerCase())) &&
+        (!location || String(t.location).toLowerCase().includes(String(location).toLowerCase())) &&
+        (!training_type || String(t.training_type).toLowerCase().includes(String(training_type).toLowerCase())) &&
+        (!language || String(t.language).toLowerCase().includes(String(language).toLowerCase())) &&
+        (min_price == null || Number(t.price_per_session) >= Number(min_price)) &&
+        (max_price == null || Number(t.price_per_session) <= Number(max_price)) &&
+        (min_experience == null || Number(t.experience_years) >= Number(min_experience))
+      );
+      list.sort((a:any,b:any)=>{
+        const dir = sort_order === "asc" ? 1 : -1;
+        if (sort_by === "price") return (a.price_per_session - b.price_per_session) * dir;
+        return (a.experience_years - b.experience_years) * dir;
+      });
+      const start = (page - 1) * per_page;
+      const pageItems = list.slice(start, start + per_page);
+      return Promise.resolve({ page, pages: Math.max(1, Math.ceil(list.length / per_page)), per_page, total: list.length, trainers: pageItems });
+    }
+    return request<any>({ path: "/trainers/", method: "GET", params });
+  },
 
   // Availability
   setAvailability: (
