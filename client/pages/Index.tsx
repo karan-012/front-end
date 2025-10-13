@@ -36,10 +36,10 @@ export default function Index() {
         page: 1,
         ...params,
       });
-      const list = Array.isArray(data?.items)
-        ? data.items
+      const list = Array.isArray((data as any)?.trainers)
+        ? (data as any).trainers
         : Array.isArray(data)
-          ? data
+          ? (data as any)
           : [];
       setTrainers(list);
     } catch (err: any) {
