@@ -74,6 +74,9 @@ export default function Profile() {
   return (
     <MainLayout>
       <section className="container py-10 grid gap-6">
+        <div>
+          <h1 className="text-3xl font-bold">Your Profile</h1>
+        </div>
         {loading ? (
           <div className="rounded-lg border p-6 text-sm text-muted-foreground">Loading...</div>
         ) : (
