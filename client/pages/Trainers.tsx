@@ -207,7 +207,7 @@ export default function Trainers() {
           <span className="text-sm text-muted-foreground">Page {page}</span>
           <Button
             variant="outline"
-            disabled={(data as any)?.pages ? page >= (data as any).pages : items.length < perPage}
+            disabled={page >= pages}
             onClick={() => fetchList(page + 1)}
           >
             Next
