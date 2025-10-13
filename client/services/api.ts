@@ -145,9 +145,9 @@ export const api = {
   upsertClientProfile: (body: any, method: "POST" | "PUT" = "POST") =>
     request<any>({ path: "/profile/client", method, body, auth: true }),
   myTrainerProfile: () =>
-    request<any>({ path: "/profile/trainer/me", method: "GET", auth: true }),
+    BACKEND_OFFLINE ? Promise.resolve(null) : request<any>({ path: "/profile/trainer/me", method: "GET", auth: true }),
   myClientProfile: () =>
-    request<any>({ path: "/profile/client/me", method: "GET", auth: true }),
+    BACKEND_OFFLINE ? Promise.resolve(null) : request<any>({ path: "/profile/client/me", method: "GET", auth: true }),
   getTrainerByUsername: (username: string) =>
     request<any>({
       path: `/profile/trainer/${encodeURIComponent(username)}`,
