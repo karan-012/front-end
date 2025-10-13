@@ -259,7 +259,7 @@ export const api = {
 
   // Notifications (placeholders)
   listNotifications: () =>
-    request<any>({ path: "/notifications", method: "GET", auth: true }),
+    BACKEND_OFFLINE ? Promise.resolve([]) : request<any>({ path: "/notifications", method: "GET", auth: true }),
   markNotificationRead: (id: string) =>
     request<any>({
       path: `/notifications/${encodeURIComponent(id)}/read`,
