@@ -27,6 +27,7 @@ export default function Trainers() {
   const [items, setItems] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
+  const [pages, setPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const perPage = 9;
   const [error, setError] = useState("");
