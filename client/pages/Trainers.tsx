@@ -40,14 +40,14 @@ export default function Trainers() {
         page: p,
         per_page: perPage,
       });
-      const list = Array.isArray(data?.items)
-        ? data.items
+      const list = Array.isArray((data as any)?.trainers)
+        ? (data as any).trainers
         : Array.isArray(data)
-          ? data
+          ? (data as any)
           : [];
       setItems(list);
-      setTotal(data?.total || list.length);
-      setPage(p);
+      setTotal((data as any)?.total ?? list.length);
+      setPage((data as any)?.page ?? p);
     } catch (e: any) {
       setError(e?.message || "Failed to load trainers");
     } finally {
@@ -205,7 +205,7 @@ export default function Trainers() {
           <span className="text-sm text-muted-foreground">Page {page}</span>
           <Button
             variant="outline"
-            disabled={items.length < perPage}
+            disabled={(data as any)?.pages ? page >= (data as any).pages : items.length < perPage}
             onClick={() => fetchList(page + 1)}
           >
             Next
