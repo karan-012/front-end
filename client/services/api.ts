@@ -8,6 +8,20 @@ import {
 const DEFAULT_BASE_URL =
   (import.meta as any).env?.VITE_API_BASE_URL || "http://127.0.0.1:5000";
 
+// If preview is remote but base URL is localhost, use offline mocks
+const BACKEND_OFFLINE =
+  typeof window !== "undefined" &&
+  /^(?!localhost|127\.0\.0\.1)/.test(window.location.hostname) &&
+  /localhost|127\.0\.0\.1/.test(DEFAULT_BASE_URL);
+
+function sampleTrainers() {
+  return [
+    { experience_years: 5, id: 1, language: "English", location: "Delhi", name: "Alice Smith", price_per_session: 800.0, specialization: "strength training, weight loss", training_type: "online", username: "MJ" },
+    { experience_years: 5, id: 2, language: "English", location: "Delhi", name: "Alice Smith", price_per_session: 800.0, specialization: "strength training, weight loss", training_type: "online", username: "mj" },
+    { experience_years: 3, id: 3, language: "Hindi", location: "Una", name: "Mrigaank Jaswal", price_per_session: 1200.0, specialization: "Fat Loss", training_type: "Hybrid", username: "mj12" },
+  ];
+}
+
 export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 
 export interface RequestOptions {
