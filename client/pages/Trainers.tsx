@@ -41,11 +41,14 @@ export default function Trainers() {
         page: p,
         per_page: perPage,
       });
-      const list = Array.isArray((data as any)?.trainers)
-        ? (data as any).trainers
-        : Array.isArray(data)
-          ? (data as any)
-          : [];
+      const raw = (data as any)?.trainers;
+      const list = Array.isArray(raw)
+        ? raw
+        : raw && typeof raw === "object"
+          ? Object.values(raw as any)
+          : Array.isArray(data)
+            ? (data as any)
+            : [];
       setItems(list);
       setTotal((data as any)?.total ?? list.length);
       setPages((data as any)?.pages ?? Math.max(1, Math.ceil(((data as any)?.total ?? list.length) / perPage)));
@@ -144,7 +147,7 @@ export default function Trainers() {
           </div>
         )}
 
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-testid="trainers-grid">
           {loading &&
             Array.from({ length: perPage }).map((_, i) => (
               <div
