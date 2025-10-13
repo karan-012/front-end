@@ -169,7 +169,9 @@ export default function Trainers() {
                 <div className="h-24 bg-gradient-to-r from-[hsl(var(--brand-start))]/20 to-[hsl(var(--brand-end))]/20" />
                 <CardHeader>
                   <CardTitle className="text-lg">
-                    {t.username || t.name || "Trainer"}
+                    <a href={`/profile?u=${encodeURIComponent(t.username || "")}`} className="hover:underline">
+                      {t.username || t.name || "Trainer"}
+                    </a>
                   </CardTitle>
                   <CardDescription>
                     {[t.specialization, t.location].filter(Boolean).join(" • ")}

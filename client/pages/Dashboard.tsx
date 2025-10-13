@@ -18,6 +18,8 @@ import BookingsChart from "@/components/analytics/BookingsChart";
 import ReviewSection from "@/components/reviews/ReviewSection";
 import { useEffect, useState } from "react";
 
+import { useAuth } from "@/context/AuthContext";
+
 export default function Dashboard() {
   const [trainerProfile, setTrainerProfile] = useState<any | null>(null);
   const [clientProfile, setClientProfile] = useState<any | null>(null);
@@ -25,6 +27,7 @@ export default function Dashboard() {
   const [cBookings, setCBookings] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const { user } = useAuth();
 
   const load = async () => {
     setLoading(true);
@@ -62,7 +65,7 @@ export default function Dashboard() {
     <MainLayout>
       <section className="container py-10">
         <div className="mb-6">
-          <h1 className="text-3xl font-bold">Dashboard</h1>
+          <h1 className="text-3xl font-bold">Dashboard <span className="text-muted-foreground text-xl">@{user?.username || user?.name}</span></h1>
           <p className="text-muted-foreground">
             Manage your trainer and client journeys.
           </p>
