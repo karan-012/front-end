@@ -36,11 +36,14 @@ export default function Index() {
         page: 1,
         ...params,
       });
-      const list = Array.isArray((data as any)?.trainers)
-        ? (data as any).trainers
-        : Array.isArray(data)
-          ? (data as any)
-          : [];
+      const raw = (data as any)?.trainers;
+      const list = Array.isArray(raw)
+        ? raw
+        : raw && typeof raw === "object"
+          ? Object.values(raw as any)
+          : Array.isArray(data)
+            ? (data as any)
+            : [];
       setTrainers(list);
     } catch (err: any) {
       setError(err?.message || "Failed to load trainers");
