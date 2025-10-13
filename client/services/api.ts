@@ -149,12 +149,12 @@ export const api = {
   myClientProfile: () =>
     BACKEND_OFFLINE ? Promise.resolve(null) : request<any>({ path: "/profile/client/me", method: "GET", auth: true }),
   getTrainerByUsername: (username: string) =>
-    request<any>({
+    BACKEND_OFFLINE ? Promise.resolve(sampleTrainers().find(t=>String(t.username).toLowerCase()===String(username).toLowerCase()) || null) : request<any>({
       path: `/profile/trainer/${encodeURIComponent(username)}`,
       method: "GET",
     }),
   getClientByUsername: (username: string) =>
-    request<any>({
+    BACKEND_OFFLINE ? Promise.resolve(null) : request<any>({
       path: `/profile/client/${encodeURIComponent(username)}`,
       method: "GET",
     }),
@@ -280,16 +280,16 @@ export const api = {
   }) => request<any>({ path: "/reviews", method: "POST", body, auth: true }),
 
   // Chat (placeholders)
-  chatThreads: () =>
+  chatThreads: () => BACKEND_OFFLINE ? Promise.resolve([]) :
     request<any>({ path: "/chat/threads", method: "GET", auth: true }),
-  chatMessages: (thread_id: string) =>
+  chatMessages: (thread_id: string) => BACKEND_OFFLINE ? Promise.resolve([]) :
     request<any>({
       path: "/chat/messages",
       method: "GET",
       params: { thread_id },
       auth: true,
     }),
-  chatSend: (body: { thread_id: string; message: string }) =>
+  chatSend: (body: { thread_id: string; message: string }) => BACKEND_OFFLINE ? Promise.resolve({ id: Date.now(), ...body }) :
     request<any>({ path: "/chat/messages", method: "POST", body, auth: true }),
 
   // Video (placeholders)
