@@ -89,7 +89,10 @@ export default function Profile() {
                   data={data}
                 />
                 {trainer ? (
-                  <ReviewSection trainerUsername={data?.username || username} trainerId={data?.id} />
+                  <ReviewSection
+                    trainerUsername={data?.username || username}
+                    trainerId={data?.id}
+                  />
                 ) : null}
               </div>
               {trainer ? (

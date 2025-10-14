@@ -16,9 +16,39 @@ const BACKEND_OFFLINE =
 
 function sampleTrainers() {
   return [
-    { experience_years: 5, id: 1, language: "English", location: "Delhi", name: "Alice Smith", price_per_session: 800.0, specialization: "strength training, weight loss", training_type: "online", username: "MJ" },
-    { experience_years: 5, id: 2, language: "English", location: "Delhi", name: "Alice Smith", price_per_session: 800.0, specialization: "strength training, weight loss", training_type: "online", username: "mj" },
-    { experience_years: 3, id: 3, language: "Hindi", location: "Una", name: "Mrigaank Jaswal", price_per_session: 1200.0, specialization: "Fat Loss", training_type: "Hybrid", username: "mj12" },
+    {
+      experience_years: 5,
+      id: 1,
+      language: "English",
+      location: "Delhi",
+      name: "Alice Smith",
+      price_per_session: 800.0,
+      specialization: "strength training, weight loss",
+      training_type: "online",
+      username: "MJ",
+    },
+    {
+      experience_years: 5,
+      id: 2,
+      language: "English",
+      location: "Delhi",
+      name: "Alice Smith",
+      price_per_session: 800.0,
+      specialization: "strength training, weight loss",
+      training_type: "online",
+      username: "mj",
+    },
+    {
+      experience_years: 3,
+      id: 3,
+      language: "Hindi",
+      location: "Una",
+      name: "Mrigaank Jaswal",
+      price_per_session: 1200.0,
+      specialization: "Fat Loss",
+      training_type: "Hybrid",
+      username: "mj12",
+    },
   ];
 }
 
@@ -145,42 +175,95 @@ export const api = {
   upsertClientProfile: (body: any, method: "POST" | "PUT" = "POST") =>
     request<any>({ path: "/profile/client", method, body, auth: true }),
   myTrainerProfile: () =>
-    BACKEND_OFFLINE ? Promise.resolve(null) : request<any>({ path: "/profile/trainer/me", method: "GET", auth: true }),
+    BACKEND_OFFLINE
+      ? Promise.resolve(null)
+      : request<any>({
+          path: "/profile/trainer/me",
+          method: "GET",
+          auth: true,
+        }),
   myClientProfile: () =>
-    BACKEND_OFFLINE ? Promise.resolve(null) : request<any>({ path: "/profile/client/me", method: "GET", auth: true }),
+    BACKEND_OFFLINE
+      ? Promise.resolve(null)
+      : request<any>({ path: "/profile/client/me", method: "GET", auth: true }),
   getTrainerByUsername: (username: string) =>
-    BACKEND_OFFLINE ? Promise.resolve(sampleTrainers().find(t=>String(t.username).toLowerCase()===String(username).toLowerCase()) || null) : request<any>({
-      path: `/profile/trainer/${encodeURIComponent(username)}`,
-      method: "GET",
-    }),
+    BACKEND_OFFLINE
+      ? Promise.resolve(
+          sampleTrainers().find(
+            (t) =>
+              String(t.username).toLowerCase() ===
+              String(username).toLowerCase(),
+          ) || null,
+        )
+      : request<any>({
+          path: `/profile/trainer/${encodeURIComponent(username)}`,
+          method: "GET",
+        }),
   getClientByUsername: (username: string) =>
-    BACKEND_OFFLINE ? Promise.resolve(null) : request<any>({
-      path: `/profile/client/${encodeURIComponent(username)}`,
-      method: "GET",
-    }),
+    BACKEND_OFFLINE
+      ? Promise.resolve(null)
+      : request<any>({
+          path: `/profile/client/${encodeURIComponent(username)}`,
+          method: "GET",
+        }),
 
   // Trainer search
   searchTrainers: (params: Record<string, any>) => {
     if (BACKEND_OFFLINE) {
       let list = sampleTrainers();
-      const { specialization = "", location = "", training_type = "", language = "", min_price, max_price, min_experience, page = 1, per_page = 10, sort_by = "experience", sort_order = "desc" } = params || ({} as any);
-      list = list.filter((t:any) =>
-        (!specialization || String(t.specialization).toLowerCase().includes(String(specialization).toLowerCase())) &&
-        (!location || String(t.location).toLowerCase().includes(String(location).toLowerCase())) &&
-        (!training_type || String(t.training_type).toLowerCase().includes(String(training_type).toLowerCase())) &&
-        (!language || String(t.language).toLowerCase().includes(String(language).toLowerCase())) &&
-        (min_price == null || Number(t.price_per_session) >= Number(min_price)) &&
-        (max_price == null || Number(t.price_per_session) <= Number(max_price)) &&
-        (min_experience == null || Number(t.experience_years) >= Number(min_experience))
+      const {
+        specialization = "",
+        location = "",
+        training_type = "",
+        language = "",
+        min_price,
+        max_price,
+        min_experience,
+        page = 1,
+        per_page = 10,
+        sort_by = "experience",
+        sort_order = "desc",
+      } = params || ({} as any);
+      list = list.filter(
+        (t: any) =>
+          (!specialization ||
+            String(t.specialization)
+              .toLowerCase()
+              .includes(String(specialization).toLowerCase())) &&
+          (!location ||
+            String(t.location)
+              .toLowerCase()
+              .includes(String(location).toLowerCase())) &&
+          (!training_type ||
+            String(t.training_type)
+              .toLowerCase()
+              .includes(String(training_type).toLowerCase())) &&
+          (!language ||
+            String(t.language)
+              .toLowerCase()
+              .includes(String(language).toLowerCase())) &&
+          (min_price == null ||
+            Number(t.price_per_session) >= Number(min_price)) &&
+          (max_price == null ||
+            Number(t.price_per_session) <= Number(max_price)) &&
+          (min_experience == null ||
+            Number(t.experience_years) >= Number(min_experience)),
       );
-      list.sort((a:any,b:any)=>{
+      list.sort((a: any, b: any) => {
         const dir = sort_order === "asc" ? 1 : -1;
-        if (sort_by === "price") return (a.price_per_session - b.price_per_session) * dir;
+        if (sort_by === "price")
+          return (a.price_per_session - b.price_per_session) * dir;
         return (a.experience_years - b.experience_years) * dir;
       });
       const start = (page - 1) * per_page;
       const pageItems = list.slice(start, start + per_page);
-      return Promise.resolve({ page, pages: Math.max(1, Math.ceil(list.length / per_page)), per_page, total: list.length, trainers: pageItems });
+      return Promise.resolve({
+        page,
+        pages: Math.max(1, Math.ceil(list.length / per_page)),
+        per_page,
+        total: list.length,
+        trainers: pageItems,
+      });
     }
     return request<any>({ path: "/trainers/", method: "GET", params });
   },
@@ -253,13 +336,19 @@ export const api = {
       auth: true,
     }),
   trainerBookings: () =>
-    BACKEND_OFFLINE ? Promise.resolve([]) : request<any>({ path: "/booking/trainer", method: "GET", auth: true }),
+    BACKEND_OFFLINE
+      ? Promise.resolve([])
+      : request<any>({ path: "/booking/trainer", method: "GET", auth: true }),
   clientBookings: () =>
-    BACKEND_OFFLINE ? Promise.resolve([]) : request<any>({ path: "/booking/client", method: "GET", auth: true }),
+    BACKEND_OFFLINE
+      ? Promise.resolve([])
+      : request<any>({ path: "/booking/client", method: "GET", auth: true }),
 
   // Notifications (placeholders)
   listNotifications: () =>
-    BACKEND_OFFLINE ? Promise.resolve([]) : request<any>({ path: "/notifications", method: "GET", auth: true }),
+    BACKEND_OFFLINE
+      ? Promise.resolve([])
+      : request<any>({ path: "/notifications", method: "GET", auth: true }),
   markNotificationRead: (id: string) =>
     request<any>({
       path: `/notifications/${encodeURIComponent(id)}/read`,
@@ -282,8 +371,11 @@ export const api = {
       path: `/reviews/${encodeURIComponent(trainer_username)}/rating`,
       method: "GET",
     }),
-  addReviewById: (body: { trainer_id: number | string; rating: number; comment: string }) =>
-    request<any>({ path: "/reviews", method: "POST", body, auth: true }),
+  addReviewById: (body: {
+    trainer_id: number | string;
+    rating: number;
+    comment: string;
+  }) => request<any>({ path: "/reviews", method: "POST", body, auth: true }),
   replyToReview: (review_id: number | string, reply: string) =>
     request<any>({
       path: `/reviews/${encodeURIComponent(String(review_id))}/reply`,
@@ -298,7 +390,10 @@ export const api = {
       auth: true,
     }),
   // Backwards-compat helpers (legacy routes if server differs)
-  listReviews: (trainer_username: string, params: { page?: number; limit?: number } = {}) =>
+  listReviews: (
+    trainer_username: string,
+    params: { page?: number; limit?: number } = {},
+  ) =>
     request<any>({
       path: `/reviews/${encodeURIComponent(trainer_username)}`,
       method: "GET",
@@ -315,17 +410,28 @@ export const api = {
       : request<any>({ path: "/reviews", method: "POST", body, auth: true }),
 
   // Chat (placeholders)
-  chatThreads: () => BACKEND_OFFLINE ? Promise.resolve([]) :
-    request<any>({ path: "/chat/threads", method: "GET", auth: true }),
-  chatMessages: (thread_id: string) => BACKEND_OFFLINE ? Promise.resolve([]) :
-    request<any>({
-      path: "/chat/messages",
-      method: "GET",
-      params: { thread_id },
-      auth: true,
-    }),
-  chatSend: (body: { thread_id: string; message: string }) => BACKEND_OFFLINE ? Promise.resolve({ id: Date.now(), ...body }) :
-    request<any>({ path: "/chat/messages", method: "POST", body, auth: true }),
+  chatThreads: () =>
+    BACKEND_OFFLINE
+      ? Promise.resolve([])
+      : request<any>({ path: "/chat/threads", method: "GET", auth: true }),
+  chatMessages: (thread_id: string) =>
+    BACKEND_OFFLINE
+      ? Promise.resolve([])
+      : request<any>({
+          path: "/chat/messages",
+          method: "GET",
+          params: { thread_id },
+          auth: true,
+        }),
+  chatSend: (body: { thread_id: string; message: string }) =>
+    BACKEND_OFFLINE
+      ? Promise.resolve({ id: Date.now(), ...body })
+      : request<any>({
+          path: "/chat/messages",
+          method: "POST",
+          body,
+          auth: true,
+        }),
 
   // Video (placeholders)
   createVideoRoom: (body: { name: string }) =>

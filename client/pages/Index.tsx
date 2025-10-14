@@ -258,7 +258,9 @@ export default function Index() {
           <Card>
             <CardHeader>
               <CardTitle>Popular categories</CardTitle>
-              <CardDescription>Strength, Weight loss, Mobility, Yoga</CardDescription>
+              <CardDescription>
+                Strength, Weight loss, Mobility, Yoga
+              </CardDescription>
             </CardHeader>
             <CardContent className="text-sm text-muted-foreground">
               Explore expert-led programs tailored to your level and goals.
@@ -303,9 +305,15 @@ export default function Index() {
               <CardDescription>Real stories, real results</CardDescription>
             </CardHeader>
             <CardContent className="text-sm text-muted-foreground grid gap-3">
-              <div className="rounded border p-3">“Found an amazing trainer for my marathon prep!” — Priya</div>
-              <div className="rounded border p-3">“Flexible online sessions fit my busy schedule.” — Amit</div>
-              <div className="rounded border p-3">“Great platform to manage my clients.” — Rohan (Trainer)</div>
+              <div className="rounded border p-3">
+                “Found an amazing trainer for my marathon prep!” — Priya
+              </div>
+              <div className="rounded border p-3">
+                “Flexible online sessions fit my busy schedule.” — Amit
+              </div>
+              <div className="rounded border p-3">
+                “Great platform to manage my clients.” — Rohan (Trainer)
+              </div>
             </CardContent>
           </Card>
           <Card>
@@ -350,15 +358,21 @@ export default function Index() {
             <CardContent className="text-sm text-muted-foreground grid gap-3">
               <div>
                 <div className="font-medium">How do I book a session?</div>
-                <div>Find a trainer, open their profile, and request a booking.</div>
+                <div>
+                  Find a trainer, open their profile, and request a booking.
+                </div>
               </div>
               <div>
                 <div className="font-medium">Can I reschedule?</div>
-                <div>Yes, coordinate via chat and update the booking if needed.</div>
+                <div>
+                  Yes, coordinate via chat and update the booking if needed.
+                </div>
               </div>
               <div>
                 <div className="font-medium">Is online training effective?</div>
-                <div>Absolutely—our trainers run tailored sessions for home setups.</div>
+                <div>
+                  Absolutely—our trainers run tailored sessions for home setups.
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -368,7 +382,11 @@ export default function Index() {
               <CardDescription>It’s free to browse trainers</CardDescription>
             </CardHeader>
             <CardContent>
-              <Button asChild size="lg" className="w-full bg-gradient-to-r from-[hsl(var(--brand-start))] to-[hsl(var(--brand-end))] text-white">
+              <Button
+                asChild
+                size="lg"
+                className="w-full bg-gradient-to-r from-[hsl(var(--brand-start))] to-[hsl(var(--brand-end))] text-white"
+              >
                 <Link to="/trainers">Find your trainer</Link>
               </Button>
             </CardContent>

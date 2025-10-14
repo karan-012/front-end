@@ -221,7 +221,9 @@ export default function Trainers() {
           >
             Prev
           </Button>
-          <span className="text-sm text-muted-foreground">Page {page} / {pages}</span>
+          <span className="text-sm text-muted-foreground">
+            Page {page} / {pages}
+          </span>
           <Button
             variant="outline"
             disabled={page >= pages}
@@ -235,7 +237,9 @@ export default function Trainers() {
           <Card>
             <CardHeader>
               <CardTitle>Tips for better search</CardTitle>
-              <CardDescription>Refine filters to discover more trainers</CardDescription>
+              <CardDescription>
+                Refine filters to discover more trainers
+              </CardDescription>
             </CardHeader>
             <CardContent className="text-sm text-muted-foreground grid gap-2">
               <div>• Try broader specializations (e.g., "Strength")</div>

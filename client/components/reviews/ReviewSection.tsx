@@ -32,7 +32,8 @@ export default function ReviewSection({
   const [loading, setLoading] = useState(false);
 
   const canReply = useMemo(
-    () => !!trainerUsername && user?.username && user?.username === trainerUsername,
+    () =>
+      !!trainerUsername && user?.username && user?.username === trainerUsername,
     [trainerUsername, user?.username],
   );
 
@@ -41,7 +42,10 @@ export default function ReviewSection({
     setLoading(true);
     setError("");
     try {
-      const data = await api.getReviewsByUsername(trainerUsername, { page: p, limit: 10 });
+      const data = await api.getReviewsByUsername(trainerUsername, {
+        page: p,
+        limit: 10,
+      });
       const list = Array.isArray((data as any)?.reviews)
         ? (data as any).reviews
         : Array.isArray((data as any)?.items)
@@ -60,8 +64,12 @@ export default function ReviewSection({
     try {
       const r = await api.getTrainerRating(trainerUsername);
       if (r) {
-        setAvgRating(typeof r.average_rating === "number" ? r.average_rating : null);
-        setTotalReviews(typeof r.total_reviews === "number" ? r.total_reviews : 0);
+        setAvgRating(
+          typeof r.average_rating === "number" ? r.average_rating : null,
+        );
+        setTotalReviews(
+          typeof r.total_reviews === "number" ? r.total_reviews : 0,
+        );
       }
     } catch {}
   };
@@ -79,7 +87,12 @@ export default function ReviewSection({
       if (trainerId != null) {
         await api.addReviewById({ trainer_id: trainerId, rating, comment });
       } else {
-        await api.addReview({ trainer_id: undefined, trainer_username: trainerUsername, rating, comment });
+        await api.addReview({
+          trainer_id: undefined,
+          trainer_username: trainerUsername,
+          rating,
+          comment,
+        });
       }
       setComment("");
       setRating(5);
@@ -160,12 +173,17 @@ export default function ReviewSection({
             <li className="p-3 text-sm text-muted-foreground">Loading...</li>
           ) : null}
           {!loading && items.length === 0 ? (
-            <li className="p-3 text-sm text-muted-foreground">No reviews yet.</li>
+            <li className="p-3 text-sm text-muted-foreground">
+              No reviews yet.
+            </li>
           ) : null}
           {items.map((r: any, i: number) => {
-            const clientName = r.client_name || r.author || r.client_username || "Anonymous";
+            const clientName =
+              r.client_name || r.author || r.client_username || "Anonymous";
             const canDelete = !!(
-              (user?.username && (r.client_username === user.username || r.client_name === user.username)) ||
+              (user?.username &&
+                (r.client_username === user.username ||
+                  r.client_name === user.username)) ||
               (user && (user.is_admin || user.role === "admin"))
             );
             return (
@@ -177,7 +195,11 @@ export default function ReviewSection({
                       {(r.rating ?? "-") + "/5"}
                     </span>
                     {canDelete ? (
-                      <Button size="sm" variant="ghost" onClick={() => removeReview(r.id)}>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => removeReview(r.id)}
+                      >
                         Delete
                       </Button>
                     ) : null}
@@ -187,8 +209,12 @@ export default function ReviewSection({
                 {Array.isArray(r.replies) && r.replies.length > 0 ? (
                   <div className="ml-3 border-l pl-3">
                     {r.replies.map((rep: any) => (
-                      <div key={rep.id} className="text-muted-foreground text-xs py-1">
-                        <span className="font-medium">Trainer:</span> {rep.trainer_reply || rep.reply}
+                      <div
+                        key={rep.id}
+                        className="text-muted-foreground text-xs py-1"
+                      >
+                        <span className="font-medium">Trainer:</span>{" "}
+                        {rep.trainer_reply || rep.reply}
                       </div>
                     ))}
                   </div>
@@ -199,7 +225,10 @@ export default function ReviewSection({
                       placeholder="Write a reply..."
                       value={replyMap[String(r.id)] || ""}
                       onChange={(e) =>
-                        setReplyMap((m) => ({ ...m, [String(r.id)]: e.target.value }))
+                        setReplyMap((m) => ({
+                          ...m,
+                          [String(r.id)]: e.target.value,
+                        }))
                       }
                     />
                     <Button size="sm" onClick={() => submitReply(r.id)}>
@@ -212,11 +241,21 @@ export default function ReviewSection({
           })}
         </ul>
         <div className="flex items-center justify-center gap-2 pt-2">
-          <Button variant="outline" disabled={page <= 1} onClick={() => load(page - 1)}>
+          <Button
+            variant="outline"
+            disabled={page <= 1}
+            onClick={() => load(page - 1)}
+          >
             Prev
           </Button>
-          <span className="text-xs text-muted-foreground">Page {page} / {totalPages}</span>
-          <Button variant="outline" disabled={page >= totalPages} onClick={() => load(page + 1)}>
+          <span className="text-xs text-muted-foreground">
+            Page {page} / {totalPages}
+          </span>
+          <Button
+            variant="outline"
+            disabled={page >= totalPages}
+            onClick={() => load(page + 1)}
+          >
             Next
           </Button>
         </div>
