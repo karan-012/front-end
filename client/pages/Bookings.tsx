@@ -1,4 +1,4 @@
-import MainLayout from "@/components/layout/MainLayout";
+import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -23,11 +23,9 @@ export default function Bookings() {
   useEffect(()=>{ load(); }, []);
 
   return (
-    <MainLayout>
-      <section className="container py-10">
-        <h1 className="text-3xl font-bold">Bookings</h1>
-        {error && <div className="mt-4 rounded border border-destructive/50 bg-destructive/10 px-3 py-2 text-sm text-destructive-foreground">{error}</div>}
-        <Tabs defaultValue="client" className="mt-6">
+    <DashboardLayout title="Bookings" subtitle="Your sessions and requests">
+      {error && <div className="mb-4 rounded border border-destructive/50 bg-destructive/10 px-3 py-2 text-sm text-destructive-foreground">{error}</div>}
+      <Tabs defaultValue="client">
           <TabsList>
             <TabsTrigger value="client">As Client</TabsTrigger>
             <TabsTrigger value="trainer">As Trainer</TabsTrigger>
@@ -91,7 +89,6 @@ export default function Bookings() {
             </Card>
           </TabsContent>
         </Tabs>
-      </section>
-    </MainLayout>
+    </DashboardLayout>
   );
 }
