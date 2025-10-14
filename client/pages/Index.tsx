@@ -243,6 +243,40 @@ export default function Index() {
       </section>
 
       <section className="container py-16">
+        <div className="grid md:grid-cols-3 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>How it works</CardTitle>
+              <CardDescription>Find, chat, and book in minutes</CardDescription>
+            </CardHeader>
+            <CardContent className="text-sm text-muted-foreground grid gap-2">
+              <div>1. Search trainers by specialization and location</div>
+              <div>2. Chat to align on goals and availability</div>
+              <div>3. Book and manage sessions seamlessly</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Popular categories</CardTitle>
+              <CardDescription>Strength, Weight loss, Mobility, Yoga</CardDescription>
+            </CardHeader>
+            <CardContent className="text-sm text-muted-foreground">
+              Explore expert-led programs tailored to your level and goals.
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Flexible formats</CardTitle>
+              <CardDescription>Online, In-person, Hybrid</CardDescription>
+            </CardHeader>
+            <CardContent className="text-sm text-muted-foreground">
+              Train wherever you are with formats that fit your schedule.
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      <section className="container py-16">
         <div className="rounded-2xl border bg-gradient-to-br from-[hsl(var(--brand-start))] to-[hsl(var(--brand-end))] p-8 md:p-12 text-white">
           <h3 className="text-2xl md:text-3xl font-extrabold">
             Are you a certified trainer?
@@ -258,6 +292,87 @@ export default function Index() {
           >
             <Link to="/auth?tab=register">Create trainer account</Link>
           </Button>
+        </div>
+      </section>
+
+      <section className="container py-16">
+        <div className="grid md:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>What our users say</CardTitle>
+              <CardDescription>Real stories, real results</CardDescription>
+            </CardHeader>
+            <CardContent className="text-sm text-muted-foreground grid gap-3">
+              <div className="rounded border p-3">“Found an amazing trainer for my marathon prep!” — Priya</div>
+              <div className="rounded border p-3">“Flexible online sessions fit my busy schedule.” — Amit</div>
+              <div className="rounded border p-3">“Great platform to manage my clients.” — Rohan (Trainer)</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Why MyPter</CardTitle>
+              <CardDescription>Built for clients and trainers</CardDescription>
+            </CardHeader>
+            <CardContent className="text-sm text-muted-foreground grid gap-2">
+              <div>• Verified trainer profiles</div>
+              <div>• Calendar-friendly availability</div>
+              <div>• Secure payments and receipts</div>
+              <div>• Reviews and ratings you can trust</div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      <section className="container py-16">
+        <div className="grid md:grid-cols-3 gap-6 text-center">
+          <div className="rounded-xl border p-6">
+            <div className="text-3xl font-extrabold">10k+</div>
+            <div className="text-muted-foreground">Sessions booked</div>
+          </div>
+          <div className="rounded-xl border p-6">
+            <div className="text-3xl font-extrabold">4.8/5</div>
+            <div className="text-muted-foreground">Average trainer rating</div>
+          </div>
+          <div className="rounded-xl border p-6">
+            <div className="text-3xl font-extrabold">90%</div>
+            <div className="text-muted-foreground">Client satisfaction</div>
+          </div>
+        </div>
+      </section>
+
+      <section className="container py-16">
+        <div className="grid md:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>FAQ</CardTitle>
+              <CardDescription>Common questions, answered</CardDescription>
+            </CardHeader>
+            <CardContent className="text-sm text-muted-foreground grid gap-3">
+              <div>
+                <div className="font-medium">How do I book a session?</div>
+                <div>Find a trainer, open their profile, and request a booking.</div>
+              </div>
+              <div>
+                <div className="font-medium">Can I reschedule?</div>
+                <div>Yes, coordinate via chat and update the booking if needed.</div>
+              </div>
+              <div>
+                <div className="font-medium">Is online training effective?</div>
+                <div>Absolutely—our trainers run tailored sessions for home setups.</div>
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Get started today</CardTitle>
+              <CardDescription>It’s free to browse trainers</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button asChild size="lg" className="w-full bg-gradient-to-r from-[hsl(var(--brand-start))] to-[hsl(var(--brand-end))] text-white">
+                <Link to="/trainers">Find your trainer</Link>
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </section>
     </MainLayout>
