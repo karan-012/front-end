@@ -221,7 +221,7 @@ export default function Trainers() {
           >
             Prev
           </Button>
-          <span className="text-sm text-muted-foreground">Page {page}</span>
+          <span className="text-sm text-muted-foreground">Page {page} / {pages}</span>
           <Button
             variant="outline"
             disabled={page >= pages}
@@ -230,6 +230,20 @@ export default function Trainers() {
             Next
           </Button>
         </div>
+
+        <section className="container py-12">
+          <Card>
+            <CardHeader>
+              <CardTitle>Tips for better search</CardTitle>
+              <CardDescription>Refine filters to discover more trainers</CardDescription>
+            </CardHeader>
+            <CardContent className="text-sm text-muted-foreground grid gap-2">
+              <div>• Try broader specializations (e.g., "Strength")</div>
+              <div>• Remove price caps to see all options</div>
+              <div>• Use location + online to expand reach</div>
+            </CardContent>
+          </Card>
+        </section>
       </section>
     </MainLayout>
   );
