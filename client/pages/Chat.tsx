@@ -1,4 +1,4 @@
-import MainLayout from "@/components/layout/MainLayout";
+import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import api from "@/services/api";
@@ -42,10 +42,8 @@ export default function Chat() {
   };
 
   return (
-    <MainLayout>
-      <section className="container py-10">
-        <h1 className="text-3xl font-bold">Chat</h1>
-        <div className="mt-6 grid gap-4 md:grid-cols-[280px_1fr]">
+    <DashboardLayout title="Chat" subtitle="Conversations and messages">
+      <div className="grid gap-4 md:grid-cols-[280px_1fr]">
           <aside className="rounded-lg border p-3">
             <div className="mb-2 text-sm font-semibold">Conversations</div>
             {loading ? (
@@ -92,7 +90,6 @@ export default function Chat() {
             ) : null}
           </div>
         </div>
-      </section>
-    </MainLayout>
+    </DashboardLayout>
   );
 }
