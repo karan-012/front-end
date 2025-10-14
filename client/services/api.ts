@@ -267,17 +267,52 @@ export const api = {
       auth: true,
     }),
 
-  // Reviews (placeholders)
-  listReviews: (trainer_username: string) =>
+  // Reviews
+  getReviewsByUsername: (
+    trainer_username: string,
+    params: { page?: number; limit?: number } = {},
+  ) =>
     request<any>({
-      path: `/reviews/trainer/${encodeURIComponent(trainer_username)}`,
+      path: `/reviews/${encodeURIComponent(trainer_username)}`,
+      method: "GET",
+      params,
+    }),
+  getTrainerRating: (trainer_username: string) =>
+    request<any>({
+      path: `/reviews/${encodeURIComponent(trainer_username)}/rating`,
       method: "GET",
     }),
+  addReviewById: (body: { trainer_id: number | string; rating: number; comment: string }) =>
+    request<any>({ path: "/reviews", method: "POST", body, auth: true }),
+  replyToReview: (review_id: number | string, reply: string) =>
+    request<any>({
+      path: `/reviews/${encodeURIComponent(String(review_id))}/reply`,
+      method: "POST",
+      body: { reply },
+      auth: true,
+    }),
+  deleteReview: (review_id: number | string) =>
+    request<any>({
+      path: `/reviews/${encodeURIComponent(String(review_id))}`,
+      method: "DELETE",
+      auth: true,
+    }),
+  // Backwards-compat helpers (legacy routes if server differs)
+  listReviews: (trainer_username: string, params: { page?: number; limit?: number } = {}) =>
+    request<any>({
+      path: `/reviews/${encodeURIComponent(trainer_username)}`,
+      method: "GET",
+      params,
+    }),
   addReview: (body: {
-    trainer_username: string;
+    trainer_id?: number | string;
+    trainer_username?: string;
     rating: number;
     comment: string;
-  }) => request<any>({ path: "/reviews", method: "POST", body, auth: true }),
+  }) =>
+    body.trainer_id != null
+      ? request<any>({ path: "/reviews", method: "POST", body, auth: true })
+      : request<any>({ path: "/reviews", method: "POST", body, auth: true }),
 
   // Chat (placeholders)
   chatThreads: () => BACKEND_OFFLINE ? Promise.resolve([]) :
