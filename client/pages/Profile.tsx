@@ -15,6 +15,7 @@ import ClientProfileForm from "@/components/forms/ClientProfileForm";
 import ProfileSummary from "@/components/profile/ProfileSummary";
 import AvailabilityList from "@/components/availability/AvailabilityList";
 import BookingDialog from "@/components/booking/BookingDialog";
+import ReviewSection from "@/components/reviews/ReviewSection";
 
 function useQuery() {
   const { search } = useLocation();
@@ -82,11 +83,14 @@ export default function Profile() {
               </CardDescription>
             </CardHeader>
             <CardContent className="grid md:grid-cols-3 gap-6">
-              <div className="md:col-span-2">
+              <div className="md:col-span-2 grid gap-6">
                 <ProfileSummary
                   type={trainer ? "trainer" : "client"}
                   data={data}
                 />
+                {trainer ? (
+                  <ReviewSection trainerUsername={data?.username || username} trainerId={data?.id} />
+                ) : null}
               </div>
               {trainer ? (
                 <div className="grid gap-3">
