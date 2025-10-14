@@ -1,4 +1,4 @@
-import MainLayout from "@/components/layout/MainLayout";
+import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import {
   Card,
@@ -62,14 +62,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <MainLayout>
-      <section className="container py-10">
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold">Dashboard <span className="text-muted-foreground text-xl">@{user?.username || user?.name}</span></h1>
-          <p className="text-muted-foreground">
-            Manage your trainer and client journeys.
-          </p>
-        </div>
+    <DashboardLayout title={`Dashboard @${user?.username || user?.name || ""}`} subtitle="Manage your trainer and client journeys.">
 
         {error && (
           <div className="mb-6 rounded border border-destructive/50 bg-destructive/10 px-3 py-2 text-sm text-destructive-foreground">
@@ -320,7 +313,6 @@ export default function Dashboard() {
             )}
           </TabsContent>
         </Tabs>
-      </section>
-    </MainLayout>
+    </DashboardLayout>
   );
 }
